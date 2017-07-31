@@ -11,7 +11,7 @@ let getGridStr m n =
                 "  "                                         // Return: "0 7"
         padding + string x
     let formatInnerString (x: string) =                      // Takes a string, makes a new string prepends the first character of the original string,
-        string (x.[..2]) + "| " + x                            //  and a "| " to the original string
+        string (x.[..2]) + "|\t" + x                            //  and a "| " to the original string
  
     let createInnerString x =                                // Creates a sequence from an integer, ie
         [x .. x .. n * x]                                    // Given 1, return: [1; 2; 3; 4; 5;] Or Given 2, return [2; 4; 6; 8; 10;]
@@ -28,7 +28,7 @@ let getGridStr m n =
         |> Seq.map formatIntAsString                         // Maps each Int to a string
         |> Seq.reduce addTab                                 // Reduces them together with a tab between each character
  
-    "  X  " + header + "\n\n" + gridStrMain
+    "  X\t" + header + "\n\n" + gridStrMain
  
 let get12X12GridStr() =
     System.Windows.Forms.Clipboard.SetText(getGridStr 12 12)
@@ -39,6 +39,7 @@ let getManualGridString() =
     let mValue = System.Console.ReadLine() |> int
     printfn "Please enter width of grid: "
     let nValue = System.Console.ReadLine() |> int
+    System.Windows.Forms.Clipboard.SetText(getGridStr mValue nValue)
     printfn "%s" (getGridStr mValue nValue)    
  
 let getHelp() =
