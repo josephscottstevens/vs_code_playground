@@ -1,12 +1,7 @@
 #load "suave.fsx"
 
-open System
-open System.Net
 open Suave
-open Suave.Logging
-open Suave.Logging.Message
 open Suave.Cookie
-open Suave.State.CookieStateStore
 open Suave.Operators
 open Suave.Successful
 open Suave.Filters
