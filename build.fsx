@@ -4,39 +4,18 @@
 open Fake
 
 // Directories
-let buildDir  = "./build/"
-let deployDir = "./deploy/"
+let wait() = System.Console.Read() |> ignore
 
+let runServer () =
+    fireAndForget (fun startInfo ->
+        startInfo.WorkingDirectory <- "suaveExample"
+        startInfo.FileName <- FSIHelper.fsiPath
+        startInfo.Arguments <- "--define:RELOAD app.fsx")
 
-// Filesets
-let appReferences  =
-    !! "/**/*.csproj"
-    ++ "/**/*.fsproj"
-
-// version info
-let version = "0.1"  // or retrieve from CI server
-
-// Targets
-Target "Clean" (fun _ ->
-    CleanDirs [buildDir; deployDir]
+use watcher = !! "suaveExample/*.fsx" |> WatchChanges (fun changes ->
+  tracefn "%A" changes
+  killAllCreatedProcesses()
+  runServer()
 )
-
-Target "Build" (fun _ ->
-    // compile all projects below src/app/
-    MSBuildDebug buildDir "Build" appReferences
-    |> Log "AppBuild-Output: "
-)
-
-Target "Deploy" (fun _ ->
-    !! (buildDir + "/**/*.*")
-    -- "*.zip"
-    |> Zip buildDir (deployDir + "ApplicationName." + version + ".zip")
-)
-
-// Build order
-"Clean"
-  ==> "Build"
-  ==> "Deploy"
-
-// start build
-RunTargetOrDefault "Build"
+runServer()
+wait()
