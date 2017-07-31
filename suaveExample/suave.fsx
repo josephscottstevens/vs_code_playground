@@ -1,9 +1,6 @@
 #r "../packages/Suave/lib/net40/Suave.dll"
 #r "../packages/Suave.Experimental/lib/net40/Suave.Experimental.dll"
-open Suave
-open Suave.Operators
-open Suave.Successful
-open Suave.Filters
+
 open Suave.Html
 
 let pageTemplate inner =
@@ -19,18 +16,3 @@ let pageTemplate inner =
     ]
   ]
   |> htmlToString
-let homePage = 
-  p [] (text "Hello world.")
-  |> pageTemplate
-
-let goodbyePage = 
-  p [] (text "Goodbye world.")
-  |> pageTemplate
-
-let app =
-    choose [
-        path "/"        >=> OK homePage
-        path "/goodbye" >=> OK goodbyePage
-    ]
-
-startWebServer defaultConfig app
