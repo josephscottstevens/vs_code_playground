@@ -1,1 +1,0 @@
-packages/FAKE/tools/FAKE.exe $@ --fsiargs build.fsx
