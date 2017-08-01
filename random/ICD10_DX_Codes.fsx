@@ -1,4 +1,4 @@
-#load "..\packages/FsLab/FsLab.fsx"
+#r "../packages/FSharp.Data/lib/net40/FSharp.Data.dll"
 open FSharp.Data
 open System.Linq
 

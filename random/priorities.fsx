@@ -1,16 +1,14 @@
-#load "..\packages/FsLab/FsLab.fsx"
+#r "../packages/FSharp.Data/lib/net40/FSharp.Data.dll"
 open FSharp.Data
 open System.Linq
 open System
 let Priorities = CsvProvider<"C:\Temp\priorities.txt", IgnoreErrors=true>.GetSample()
 
-let x = DateTime.Now
-
 let priority =
   query {
     for t in Priorities.Rows do
+    where (t.IsComplete = 1)
     select (t.DueTime - DateTime.Now)
-    where (not t.IsComplete)
   }
   |> Seq.map (fun (n:TimeSpan) -> n.TotalMinutes)
   |> Seq.sort

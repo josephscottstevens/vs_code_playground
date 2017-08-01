@@ -1,7 +1,9 @@
 #r "../packages/Suave/lib/net40/Suave.dll"
 #r "../packages/Suave.Experimental/lib/net40/Suave.Experimental.dll"
-
+#r "../packages/SQLProvider/lib/FSharp.Data.SqlProvider.dll"
 open Suave.Html
+open FSharp.Data.Sql
+
 
 let pageTemplate inner =
   html [] [
