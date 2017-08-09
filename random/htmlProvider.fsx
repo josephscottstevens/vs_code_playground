@@ -1,8 +1,7 @@
 #r "../packages/FSharp.Data/lib/net40/FSharp.Data.dll"
 open FSharp.Data
 1
-let trending = HtmlProvider<"https://github.com/search?q=trending&ref=opensearch">.GetSample()
+let trending = HtmlProvider<"https://www.rottentomatoes.com/top/bestofrt/top_100_science_fiction__fantasy_movies/">.GetSample()
 let x = 
-    trending.Tables.``Basic search``.Rows
-    |> Seq.map (fun t -> t.``Finds repositories with…``)
-    |> Seq.toList
+    trending.Tables.``Best of Rotten Tomatoes``.Rows
+    |> Seq.map (fun t -> t.Title)
