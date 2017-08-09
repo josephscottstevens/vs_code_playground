@@ -12,5 +12,5 @@ let matches =
   Regex.Matches(csproj, pattern)
   |> Seq.cast<Match>
   |> Seq.map (fun t -> t.Groups.[1].Value)
-  |> Seq.filter (fun t -> File.Exists(root + t) = false)
+  |> Seq.filter (fun t -> (not (File.Exists(root + t))))
   |> Seq.toList
